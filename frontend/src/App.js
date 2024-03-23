@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
+import './App.css'; 
 import PredictorForm from './components/PredictorForm';
 
 const App = () => {
-  const [predictionResult, setPredictionResult] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
-  const handlePrediction = (result) => {
-    setPredictionResult(result);
+  const handleStartButtonClick = () => {
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
   };
 
   return (
-    <div>
-      <PredictorForm/>
+    <div className="App">
+      <button onClick={handleStartButtonClick}>Start</button>
+      {showPopup && <PredictorForm  csvfile='questions' onClose={handleClosePopup} />}
     </div>
   );
 };

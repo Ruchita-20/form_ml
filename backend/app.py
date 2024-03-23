@@ -26,14 +26,13 @@ def predict():
     try:
         # Get user responses from the request
         user_responses = [int(request.json[f'col{i}']) for i in range(10)]
-
         # Make a prediction using the trained model
         input_data = pd.DataFrame([user_responses], columns=new_features.columns)
         predicted_total = model.predict(input_data)[0]
-
+        percent = (predicted_total/300)*100
         print('Predicted Total:', predicted_total)
 
-        return jsonify({'predicted_total': predicted_total})
+        return jsonify({'predicted_total': percent})
     except Exception as e:
         print('Error predicting result:', str(e))
         return jsonify({'error': str(e)})
